@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: store.name,
     description,
     openGraph: { title: store.name, description, images: store.logoUrl ? [store.logoUrl] : undefined },
+    robots: store.isDemo ? { index: false, follow: false } : undefined,
   };
 }
 

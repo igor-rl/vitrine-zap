@@ -206,6 +206,10 @@ export default function StoreEditor({ slug }: { slug: string }) {
             <label className="field"><span>Categorias (uma por linha, nesta ordem)</span>
               <textarea className="textarea" rows={5} value={catText} onChange={(e) => { setCatText(e.target.value); setDirty(true); }} />
             </label>
+            {meta.master && (
+              <label className="check"><input type="checkbox" checked={!!store.isDemo} onChange={(e) => update({ isDemo: e.target.checked })} />
+                Mostrar como prévia de demonstração (desmarque quando o lojista contratar)</label>
+            )}
             {!store.isDemo || meta.master ? (
               <label className="field"><span>{meta.hasPin ? "Trocar PIN do painel" : "Definir PIN do painel"} (4 a 8 números)</span>
                 <input className="input" inputMode="numeric" value={newPin} onChange={(e) => { setNewPin(e.target.value.replace(/\D/g, "").slice(0, 8)); setDirty(true); }} placeholder="deixe vazio para manter" />

@@ -50,8 +50,9 @@ export async function PUT(req: Request, { params }: Ctx) {
     categories: body.categories!.map((c) => c.trim()).filter(Boolean),
     products: body.products!,
     modules: body.modules ?? current.modules,
-    // campos protegidos: slug, segment, isDemo, createdAt, pinHash
+    // campos protegidos: slug, segment, createdAt, pinHash (isDemo só pela senha mestra)
   };
+  if (isMaster(key) && typeof body.isDemo === "boolean") next.isDemo = body.isDemo;
   if (body.newPin) {
     if (!/^\d{4,8}$/.test(body.newPin)) return NextResponse.json({ error: "PIN: 4 a 8 números." }, { status: 400 });
     if (current.isDemo && !isMaster(key)) return NextResponse.json({ error: "O PIN da demo não pode ser trocado." }, { status: 403 });

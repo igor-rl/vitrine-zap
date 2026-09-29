@@ -86,7 +86,7 @@ export default function Storefront({ store, brand }: { store: PublicStore; brand
             {store.instagram && <a className="pill" href={`https://instagram.com/${store.instagram}`} target="_blank" rel="noreferrer">📷 @{store.instagram}</a>}
             {store.modules.delivery?.enabled && store.modules.delivery.estimate && <span className="pill">🛵 {store.modules.delivery.estimate}</span>}
           </div>
-          {store.isDemo && <span className="demo-badge">Loja de demonstração</span>}
+          {store.isDemo && <span className="demo-badge">Prévia de demonstração · preços ilustrativos</span>}
         </div>
       </header>
 

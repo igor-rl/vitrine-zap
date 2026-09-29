@@ -2,7 +2,7 @@ import "server-only";
 import { promises as fs } from "fs";
 import path from "path";
 import { del, get, list, put } from "@vercel/blob";
-import { getSeeds } from "./seeds";
+import { getAllSeeds } from "./seeds";
 import type { PublicStore, Store } from "./types";
 
 /**
@@ -35,7 +35,7 @@ export async function getStore(slug: string): Promise<Store | null> {
   if (!SLUG_RE.test(slug)) return null;
   const saved = await readSaved(slug);
   if (saved) return saved;
-  return getSeeds().find((s) => s.slug === slug) ?? null;
+  return getAllSeeds().find((s) => s.slug === slug) ?? null;
 }
 
 export async function saveStore(store: Store): Promise<Store> {
@@ -81,7 +81,7 @@ export async function listSlugs(): Promise<{ slug: string; saved: boolean; demo:
       (await fs.readdir(LOCAL_DIR)).filter((f) => f.endsWith(".json")).forEach((f) => saved.add(f.slice(0, -5)));
     } catch {}
   }
-  const demos = new Set(getSeeds().map((s) => s.slug));
+  const demos = new Set(getAllSeeds().map((s) => s.slug));
   const all = new Set([...demos, ...saved]);
   return [...all].sort().map((slug) => ({ slug, saved: saved.has(slug), demo: demos.has(slug) }));
 }

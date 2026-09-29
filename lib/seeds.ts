@@ -70,3 +70,59 @@ export function getSeeds(): Store[] {
 }
 
 export const DEMO_PIN = "1234";
+
+/**
+ * Prévias personalizadas para prospecção (uma por lojista abordado).
+ * Não aparecem na página inicial e não são indexadas pelo Google.
+ * Preços e produtos são ilustrativos até o lojista aprovar.
+ * O WhatsApp é o da própria loja: quando o dono testa, o pedido chega nele.
+ */
+export function getPreviews(): Store[] {
+  const now = "2026-09-29T00:00:00.000Z";
+  return [
+    {
+      ...buildStoreFromTemplate({
+        slug: "comercial-jm",
+        name: "Comercial JM",
+        segment: "moveis",
+        whatsapp: "5577991199718",
+        isDemo: true,
+        deterministicIds: true,
+      }),
+      tagline: "Móveis e eletros que transformam sua casa!",
+      instagram: "comercialjmmoveis",
+      address: "R. Teixeira de Freitas, 268 — Centro, Santa Maria da Vitória",
+      hours: "Seg a sex 8h–18h · Sáb 8h–13h",
+      colors: { primary: "#1d3557", accent: "#f4a261" },
+      categories: ["Quarto", "Colchões", "Sala", "Cozinha", "Eletrodomésticos"],
+      payment: ["Pix", "Cartão de crédito", "Crediário", "Dinheiro"],
+      modules: {
+        installments: { enabled: true, maxInstallments: 10, minInstallment: 50, interestFree: true },
+        delivery: { enabled: true, fee: 0, pickup: true, estimate: "Entrega e montagem em Santa Maria e região" },
+        quoteButton: true,
+      },
+      products: [
+        { id: "jm-1", name: "Guarda-roupa casal 6 portas", category: "Quarto", price: 1399, oldPrice: 1699, available: true, featured: true,
+          description: "MDF com 6 portas e 4 gavetas. Montagem inclusa.", variants: [{ label: "Cor", options: ["Branco", "Nogueira", "Freijó"] }] },
+        { id: "jm-2", name: "Cama box casal + colchão", category: "Colchões", price: 1190, available: true, featured: true,
+          description: "Conjunto box casal com colchão de molas ensacadas." },
+        { id: "jm-3", name: "Colchão solteiro D33", category: "Colchões", price: 549, available: true },
+        { id: "jm-4", name: "Cômoda 5 gavetas", category: "Quarto", price: 499, available: true, variants: [{ label: "Cor", options: ["Branco", "Nogueira"] }] },
+        { id: "jm-5", name: "Sofá retrátil e reclinável 3 lugares", category: "Sala", price: 1790, oldPrice: 2090, available: true, featured: true,
+          description: "Tecido suede, retrátil e reclinável.", variants: [{ label: "Cor", options: ["Cinza", "Marrom", "Bege"] }] },
+        { id: "jm-6", name: "Rack com painel para TV até 55\"", category: "Sala", price: 649, available: true },
+        { id: "jm-7", name: "Cozinha compacta 4 peças", category: "Cozinha", price: 1149, available: true,
+          description: "Aéreo, balcão com pia, paneleiro e armário." },
+        { id: "jm-8", name: "Mesa de jantar 4 cadeiras", category: "Cozinha", price: 899, available: true },
+        { id: "jm-9", name: "Geladeira frost free 375 L", category: "Eletrodomésticos", price: 2799, available: true, featured: true },
+        { id: "jm-10", name: "Lavadora de roupas 12 kg", category: "Eletrodomésticos", price: 1749, available: true },
+        { id: "jm-11", name: "Fogão 4 bocas", category: "Eletrodomésticos", price: 899, available: true },
+        { id: "jm-12", name: "Micro-ondas 20 L", category: "Eletrodomésticos", price: 549, available: true },
+      ],
+      createdAt: now,
+      updatedAt: now,
+    },
+  ];
+}
+
+export const getAllSeeds = (): Store[] => [...getSeeds(), ...getPreviews()];
