@@ -68,7 +68,7 @@ export default function MasterAdmin() {
 
   if (!authed) {
     return (
-      <div className="wrap login">
+      <div className="login-wrap">
         <form className="panel" onSubmit={login}>
           <h2>Painel geral</h2>
           <p className="small" style={{ margin: 0 }}>Acesso do administrador (senha mestra). Lojista? Use o link do painel da sua loja.</p>
@@ -76,7 +76,7 @@ export default function MasterAdmin() {
             <input className="input" type="password" value={key} onChange={(e) => setKey(e.target.value)} autoFocus />
           </label>
           {err && <div className="err">{err}</div>}
-          <button className="btn block" style={{ background: "#16161b" }}>Entrar</button>
+          <button className="btn block">Entrar</button>
         </form>
       </div>
     );
@@ -109,7 +109,7 @@ export default function MasterAdmin() {
             </label>
           </div>
           {err && <div className="err">{err}</div>}
-          <button className="btn" style={{ background: "#16161b" }} disabled={busy}>{busy ? "Criando…" : "Criar loja com produtos de exemplo"}</button>
+          <button className="btn" disabled={busy}>{busy ? "Criando…" : "Criar loja com produtos de exemplo"}</button>
         </form>
 
         <div className="panel">
@@ -121,7 +121,7 @@ export default function MasterAdmin() {
                   <div style={{ fontWeight: 700 }}>{r.name} {r.demo && <span className="small">· demo</span>}</div>
                   <div className="small">/{r.slug} · {r.products} produtos{r.updatedAt ? ` · atualizada ${new Date(r.updatedAt).toLocaleDateString("pt-BR")}` : ""}</div>
                 </div>
-                <div className="row" style={{ flexWrap: "wrap", justifyContent: "flex-end" }}>
+                <div className="row-actions" style={{ justifyContent: "flex-end" }}>
                   <a className="mini" href={`/${r.slug}`} target="_blank" rel="noreferrer">Ver</a>
                   <Link className="mini" href={`/admin/${r.slug}`}>Editar</Link>
                   {r.demo && r.saved && <button className="mini" onClick={() => reset(r.slug)}>Restaurar</button>}

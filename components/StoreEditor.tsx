@@ -124,7 +124,7 @@ export default function StoreEditor({ slug }: { slug: string }) {
 
   if (!store) {
     return (
-      <div className="wrap login">
+      <div className="login-wrap">
         <form className="panel" onSubmit={async (e) => { e.preventDefault(); setErr(""); try { await load(pin); } catch (x) { setErr((x as Error).message); } }}>
           <h2>Painel da loja</h2>
           <p className="small" style={{ margin: 0 }}>/{slug}</p>
@@ -132,7 +132,7 @@ export default function StoreEditor({ slug }: { slug: string }) {
             <input className="input" type="password" inputMode="numeric" value={pin} onChange={(e) => setPin(e.target.value)} autoFocus />
           </label>
           {err && <div className="err">{err}</div>}
-          <button className="btn block" style={{ background: "#16161b" }}>Entrar</button>
+          <button className="btn block">Entrar</button>
         </form>
       </div>
     );
@@ -145,7 +145,7 @@ export default function StoreEditor({ slug }: { slug: string }) {
       <div className="topbar">
         <div className="wrap">
           <strong>{store.name}</strong>
-          <div className="row">
+          <div className="row-actions">
             {meta.master && <Link href="/admin">Todas</Link>}
             <a href={`/${slug}`} target="_blank" rel="noreferrer">Ver loja ↗</a>
           </div>
@@ -161,9 +161,9 @@ export default function StoreEditor({ slug }: { slug: string }) {
 
         {tab === "produtos" && (
           <div className="panel">
-            <div className="row between">
+            <div className="between">
               <h2>Produtos</h2>
-              <button className="btn" style={{ background: "#16161b", padding: "9px 14px" }} onClick={() => {
+              <button className="btn" style={{ padding: "9px 14px" }} onClick={() => {
                 const p: Product = { id: rid(), name: "Novo produto", price: 0, category: cats[0] || "Produtos", available: true };
                 update({ products: [p, ...store.products] });
               }}>+ Novo</button>
@@ -186,7 +186,7 @@ export default function StoreEditor({ slug }: { slug: string }) {
         {tab === "loja" && (
           <div className="panel">
             <h2>Dados da loja</h2>
-            <div className="row">
+            <div className="row-actions">
               <div className="prod-img" style={{ width: 72, height: 72 }}>{store.logoUrl ? <img src={store.logoUrl} alt="" /> : "🏪"}</div>
               <label className="mini" style={{ cursor: "pointer" }}>Trocar logo
                 <input type="file" accept="image/*" hidden onChange={async (e) => { const f = e.target.files?.[0]; if (f) { const u = await upload(f); if (u) update({ logoUrl: u }); } }} />
@@ -269,7 +269,7 @@ export default function StoreEditor({ slug }: { slug: string }) {
       <div className="savebar">
         <div className="wrap">
           <span className={`status ${status.ok ? "ok" : ""}`}>{status.t || (dirty ? "Alterações não salvas" : "Tudo salvo")}</span>
-          <button className="btn" style={{ background: "#16161b" }} disabled={!dirty} onClick={save}>Salvar</button>
+          <button className="btn" disabled={!dirty} onClick={save}>Salvar</button>
         </div>
       </div>
     </div>
@@ -312,7 +312,7 @@ function ProductEditor({ p, cats, upload, onChange, onMove, onDup, onDel }: {
             <textarea className="textarea" rows={2} value={vt} onChange={(e) => { setVt(e.target.value); onChange({ variants: textToVariants(e.target.value) }); }} />
           </label>
           <label className="check"><input type="checkbox" checked={!!p.featured} onChange={(e) => onChange({ featured: e.target.checked })} />Mostrar em Destaques</label>
-          <div className="row" style={{ flexWrap: "wrap" }}>
+          <div className="row-actions">
             <button className="mini" onClick={() => onMove(-1)}>↑ Subir</button>
             <button className="mini" onClick={() => onMove(1)}>↓ Descer</button>
             <button className="mini" onClick={onDup}>Duplicar</button>
@@ -344,8 +344,8 @@ function Share({ slug, name }: { slug: string; name: string }) {
         <button className="mini" onClick={() => { const a = document.createElement("a"); a.href = ref.current!.toDataURL("image/png"); a.download = `qrcode-${slug}.png`; a.click(); }}>Baixar QR code (para imprimir no balcão)</button>
       </div>
       <label className="field"><span>Link da loja</span><input className="input" readOnly value={url} onFocus={(e) => e.target.select()} /></label>
-      <div className="row" style={{ flexWrap: "wrap" }}>
-        <button className="btn" style={{ background: "#16161b" }} onClick={() => copy(url, "Link copiado")}>Copiar link</button>
+      <div className="row-actions">
+        <button className="btn" onClick={() => copy(url, "Link copiado")}>Copiar link</button>
         <button className="btn soft" onClick={() => copy(msg, "Mensagem copiada")}>Copiar mensagem para clientes</button>
         <a className="btn wa" href={`https://wa.me/?text=${encodeURIComponent(msg)}`} target="_blank" rel="noreferrer">Enviar no WhatsApp</a>
       </div>

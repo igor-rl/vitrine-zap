@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import Storefront from "@/components/Storefront";
 import { getStore, toPublic } from "@/lib/storage";
@@ -17,8 +17,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     openGraph: { title: store.name, description, images: store.logoUrl ? [store.logoUrl] : undefined },
     robots: store.isDemo ? { index: false, follow: false } : undefined,
+    appleWebApp: { capable: true, title: store.name, statusBarStyle: "default" },
   };
 }
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2f2f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
 
 export default async function StorePage({ params }: Props) {
   const { slug } = await params;
