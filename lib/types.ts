@@ -37,6 +37,7 @@ export interface Store {
   slug: string;
   name: string;
   segment: Segment;
+  icon?: string; // emoji usado quando o produto não tem foto
   tagline?: string;
   whatsapp: string; // só dígitos, com DDI: 5577999999999
   instagram?: string; // sem @

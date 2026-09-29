@@ -142,7 +142,7 @@ export default function Storefront({ store, brand }: { store: PublicStore; brand
 }
 
 function Thumb({ p, store }: { p: Product; store: PublicStore }) {
-  return p.image ? <img src={p.image} alt={p.name} loading="lazy" /> : <div className="ph" aria-hidden>{ICON[store.segment]}</div>;
+  return p.image ? <img src={p.image} alt={p.name} loading="lazy" /> : <div className="ph" aria-hidden>{store.icon || ICON[store.segment]}</div>;
 }
 
 function Card({ p, store, onOpen }: { p: Product; store: PublicStore; onOpen: (p: Product) => void }) {
