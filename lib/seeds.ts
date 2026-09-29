@@ -1,5 +1,6 @@
 import { buildStoreFromTemplate } from "./templates";
 import { getFoodPreviews } from "./previews-food";
+import { getRetailPreviews } from "./previews-retail";
 import type { Store } from "./types";
 
 /**
@@ -126,4 +127,4 @@ export function getPreviews(): Store[] {
   ];
 }
 
-export const getAllSeeds = (): Store[] => [...getSeeds(), ...getPreviews(), ...getFoodPreviews()];
+export const getAllSeeds = (): Store[] => [...getSeeds(), ...getPreviews(), ...getFoodPreviews(), ...getRetailPreviews()];

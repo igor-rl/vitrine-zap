@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: store.name,
     description,
-    openGraph: { title: store.name, description, images: store.logoUrl ? [store.logoUrl] : undefined },
+    openGraph: { title: store.name, description, type: "website", locale: "pt_BR" },
     robots: store.isDemo ? { index: false, follow: false } : undefined,
     appleWebApp: { capable: true, title: store.name, statusBarStyle: "default" },
   };
